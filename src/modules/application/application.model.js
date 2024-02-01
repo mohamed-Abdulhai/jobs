@@ -25,4 +25,4 @@ const applicaionSchema = new mongoose.Schema({
     },
 })
 
-export const Applicaion = mongoose.model('Applicaion',applicaionSchema)
+export const Applicaion = mongoose.model('APPLICAION',applicaionSchema)

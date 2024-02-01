@@ -18,8 +18,8 @@ const userSchema = new mongoose.Schema({
     },
     userName: {
         type: String,
-        unique: true,
-        required: true,
+        // unique: true,
+        // required: true,
     },
     email: {
         type: String,
@@ -70,7 +70,7 @@ const userSchema = new mongoose.Schema({
     },
 })
 
-userSchema.pre('save', function(next) {
+userSchema.pre('create', function(next) {
 
     if (!this.username) {
     this.username = `${this.firstName} ${this.lastName}`;
@@ -78,4 +78,5 @@ userSchema.pre('save', function(next) {
     next();
 });
 
-export const User = mongoose.model('USER', userSchema)
+const User = mongoose.model('USER', userSchema)
+export default User
