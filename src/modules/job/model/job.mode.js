@@ -40,11 +40,12 @@ const jobSchema = new mongoose.Schema({
     },
     addedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Company', 
+        ref: 'COMPANY', 
         required: true,
     },
 
 
-})
+},{timestamps:true})
 
-export const Job = mongoose.model('JOB',jobSchema)
+const Job = mongoose.model('JOB', jobSchema)
+export default Job

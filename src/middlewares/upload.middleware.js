@@ -1,22 +1,19 @@
 import multer from 'multer';
-import { v4 as uuidv4 } from 'uuid';
-import { AppError } from '../utils/error.handler.js';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, uuidv4() + '-' + file.originalname);
+cloudinary.config({
+    cloud_name: process.env.CLOUDE_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'jobs/CV',
+        allowed_formats: ['pdf'], 
     },
 });
 
-function fileFilter(req, file, cb) {
-    if (!file.mimetype.startsWith('application/pdf')) {
-        return cb(new AppError('PDF files only!', 400), false);
-    }
-
-    cb(null, true);
-}
-
-export const upload = multer({ storage, fileFilter });
+export const upload = multer({ storage: storage });

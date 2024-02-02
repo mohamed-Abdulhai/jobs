@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-const applicaionSchema = new mongoose.Schema({
+const applicationSchema = new mongoose.Schema({
     jobId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job', 
+        ref: 'JOB', 
         required: true,
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'USER', 
         required: true,
     },
     userTechSkills: {
@@ -23,6 +23,7 @@ const applicaionSchema = new mongoose.Schema({
         type: String, 
         required: true,
     },
-})
+},{timestamps:true})
 
-export const Applicaion = mongoose.model('APPLICAION',applicaionSchema)
+const Application = mongoose.model('APPLICATION', applicationSchema)
+export default Application

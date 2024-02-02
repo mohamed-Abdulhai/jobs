@@ -43,9 +43,10 @@ const companySchema = new mongoose.Schema({
     },
     companyHR: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'USER',
         required:true,
     }
-})
+},{timestamps:true})
 
-export const Company = mongoose.model('COMPANY',companySchema)
+const Company = mongoose.model('COMPANY', companySchema)
+export default Company

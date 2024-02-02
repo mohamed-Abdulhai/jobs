@@ -26,3 +26,21 @@ export const signupSchema = Joi.object({
 	params: {},
 	query: {},
 })
+
+export const forgetPasswordSchema = Joi.object({
+    body: {
+        email: Joi.string().email().required(),
+    },
+    params: {},
+    query: {},
+});
+
+export const resetPasswordSchema = Joi.object({
+    body: {
+        email: Joi.string().email().required(),
+        otp: Joi.string().required(), // You can enhance this validation based on your OTP requirements
+        newPassword: Joi.string().required().min(8), // Adjust minimum length as needed
+    },
+    params: {},
+    query: {},
+});

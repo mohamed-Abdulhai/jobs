@@ -18,8 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     userName: {
         type: String,
-        // unique: true,
-        // required: true,
+        unique: true,
     },
     email: {
         type: String,
@@ -68,12 +67,12 @@ const userSchema = new mongoose.Schema({
         enum: ['OFFLINE', 'ONLINE'],
         default:'OFFLINE'
     },
-})
+},{timestamps:true})
 
-userSchema.pre('create', function(next) {
+userSchema.pre('save', function(next) {
 
-    if (!this.username) {
-    this.username = `${this.firstName} ${this.lastName}`;
+    if (!this.userName) {
+    this.userName = `${this.firstName}_${this.lastName}`.toLowerCase();
     }
     next();
 });
