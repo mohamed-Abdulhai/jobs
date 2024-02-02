@@ -15,6 +15,6 @@ const router = Router()
 router.post('/signup', validate(signupSchema), assertUniqueEmail, signup)
 router.post('/signin',validate(signinSchema), singin)
 router.post('/forget-password', validate(forgetPasswordSchema), forgetPassword);
-router.post('/reset-password', validate(resetPasswordSchema), resetPassword);
+router.put('/reset-password', validate(resetPasswordSchema), resetPassword);
 
 export default router

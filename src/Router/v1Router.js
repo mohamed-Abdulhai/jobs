@@ -8,7 +8,7 @@ const router = Router()
 
 router.use('/auth',authRouter)
 router.use('/user', userRouter)
-router.use('company',companyRouter)
+router.use('/company',companyRouter)
 router.use('/job',jobRouter)
 router.use('/application',applicationRouter)
 

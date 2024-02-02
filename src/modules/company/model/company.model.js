@@ -41,10 +41,9 @@ const companySchema = new mongoose.Schema({
         unique: true,
         lowerCase:true,
     },
-    companyHR: {
+    COMPANY_HR: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'USER',
-        required:true,
     }
 },{timestamps:true})
 

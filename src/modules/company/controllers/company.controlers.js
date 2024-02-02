@@ -18,7 +18,7 @@ const AddCompany = catchError(async (req,res)=>{
         address,
         numberOfEmployee,
         companyEmail,
-        HR:req.user.id
+        COMPANY_HR:req.user.id
     })
     res.json({message:"Seccsseflly register company" , company})
 })
@@ -36,7 +36,7 @@ const updateCompay = catchError(async (req,res)=>{
         address,
         numberOfEmployee,
         companyEmail,
-        HR:req.user.id
+        COMPANY_HR:req.user.id
     })
     res.json({message:"Seccsseflly updated company info" })
 })

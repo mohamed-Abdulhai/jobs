@@ -14,7 +14,7 @@ import User from "../../user/model/user.model.js";
 	await User.create({
 		firstName,lastName,email,password : hashedPassword,recoveryEmail,DOB,phone,role
 	})
-	res.json({message:"Seccsseflly Sing Up"})
+	res.status(201).json({message:"Seccsseflly Sing Up"})
 	
  })
 
@@ -56,19 +56,26 @@ const forgetPassword = catchError(async (req, res) => {
 
 const resetPassword = catchError(async (req, res) => {
 	const { email, otp, newPassword } = req.body;
+
+	// Find the user by email
 	const user = await User.findOne({ email });
 
-  // Validate OTP (you may want to hash or encrypt the OTP for secure storage)
+	// Validate OTP
 	if (!user || user.resetPasswordOTP !== otp) {
-    	return res.status(400).json({ message: 'Invalid OTP' });
+		return res.status(400).json({ message: 'Invalid OTP' });
 	}
 
-  
-	const updatedUser = await User.create({
-    ...user.toObject(),  // Copy the existing user data
-    password: bcrypt.hashSync(newPassword, +process.env.SALT),
-    resetPasswordOTP: undefined, // Clear the OTP after successful reset
-	});
+	// Update the user's password using findOneAndUpdate
+	const updatedUser = await User.findOneAndUpdate(
+		{ email },
+		{
+			$set: {
+				password: bcrypt.hashSync(newPassword, +process.env.SALT),
+				resetPasswordOTP: undefined, // Clear the OTP after successful reset
+			},
+		},
+		{ new: true }
+	);
 
 	res.json({ message: 'Password reset successful' });
 });

@@ -9,26 +9,24 @@ import Job from "../model/job.mode.js"
 const AddJob = catchError(async (req, res) => {
 
     const { jobTitle,
-        jobLocation,
+        jobLocaion,
         workingTime,
         seniorityLevel,
-        jobDescription,
-        technicalSkills,
-        softSkills } = req.body
+        jobDescription } = req.body
 
 
     const job = await Job.create({
         jobTitle,
-        jobLocation,
+        jobLocaion,
         workingTime,
         seniorityLevel,
         jobDescription,
-        technicalSkills,
-        softSkills,
+        technicalSkills:req.body.technicalSkills,
+        softSkills:req.body.softSkills,
         addedBy:req.user.id
     })
 
-    res.json({ message: "Seccsseflly register Job", job })
+    res.status(201).json({ message: "Seccsseflly register Job", job })
 })
 
 
@@ -38,23 +36,23 @@ const AddJob = catchError(async (req, res) => {
 const updateJob = catchError(async (req, res) => {
  const { id}= req.params
     const { jobTitle,
-        jobLocation,
+        jobLocaion,
         workingTime,
         seniorityLevel,
         jobDescription,
-        technicalSkills,
-        softSkills } = req.body
+        tecnicalSkills,
+        SoftSkills } = req.body
 
 const job = await Job.findById(id)
 if(!job) throw new AppError("Job Not Found" , 404)
     await Job.findByIdAndUpdate(id,{
         jobTitle,
-        jobLocation,
+        jobLocaion,
         workingTime,
         seniorityLevel,
         jobDescription,
-        technicalSkills,
-        softSkills,
+        tecnicalSkills,
+        SoftSkills,
         addedBy:req.user.id
     })
 

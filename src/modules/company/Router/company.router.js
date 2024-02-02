@@ -7,7 +7,7 @@ import { AddCompany, GetCompanyData, deleteCompany, getallapplicationsOneJob, up
 
 const router = Router()
 
-router.post('/add' , authenticate ,authorize("COMPANY_HR"),validate(AddCompanySchema),UniqueCompanyEmail,UniqueCompanyName,AddCompany)
+router.post('/add' , authenticate,authorize("COMPANY_HR"),validate(AddCompanySchema),UniqueCompanyEmail,UniqueCompanyName,AddCompany)
 router.put('/update/:id' ,authenticate ,authorize("COMPANY_HR"),isOwner,validate(updateCompanySchema),UniqueCompanyEmail,UniqueCompanyName,updateCompay)
 router.delete('/delete/:id' ,authenticate,authorize("COMPANY_HR"),isOwner,deleteCompany)
 router.get('/application/:id' ,authenticate,authorize("COMPANY_HR"),getallapplicationsOneJob)

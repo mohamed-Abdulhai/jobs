@@ -2,21 +2,31 @@ import Application from "../model/application.model.js";
 import { catchError ,AppError } from "../../../utils/error.handler.js";
 
 
-const ApplyJob = catchError(async(req,res)=>{
-    const {jobId}= req.params
-    const {id :userid} = req.user 
-const {userTechSkills ,userSoftSkills} =req.body
+// Your existing import statements
 
-   
-    const apply = await Application.create({
-        jobId,
-        userId:userid,
-        userTechSkills,
-        userSoftSkills,
-    })
-    res.json({apply})
+export const ApplyJob = catchError(async (req, res) => {
+    try {
+        const { jobId, userId, userTechSkills, userSoftSkills } = req.body;
+        const cvFile = req.file.path; // Assuming Cloudinary stores the file path
+
+        // Save the application to the database using the Application model
+
+        // Example:
+        const newApplication = new Application({
+            jobId,
+            userId,
+            userTechSkills,
+            userSoftSkills,
+            userResume: cvFile, // Save the file path
+        });
+
+        await newApplication.save();
+
+        return res.status(201).json({ message: 'Application submitted successfully' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
 })
 
-export {
-    ApplyJob
-}
+
